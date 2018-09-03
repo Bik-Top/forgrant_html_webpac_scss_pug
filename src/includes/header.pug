@@ -1,0 +1,12 @@
+- var list = ["EUR", "RUB", "GBP"]
+
+
+.title-box
+    h2 Select currency to exhange:
+    ul#selecter
+        li.selected USD
+        li
+            ul
+                each item in list
+                    li= item
+

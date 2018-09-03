@@ -1,0 +1,245 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500);body {
+  background: #eee; }
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  font: normal 14px/24px "Roboto", sans-serif;
+  color: #fff;
+  background: url(/images/bg_top.png) no-repeat top center #1b232b; }
+
+.page {
+  max-width: 984px;
+  margin: 0 auto; }
+
+.title-box {
+  display: flex;
+  padding: 20px 20px 10px 20px;
+  background: rgba(252, 252, 252, 0.02);
+  border: solid 1px #2b3b45;
+  border-radius: 6px;
+  margin: 70px 0 50px; }
+.title-box h2 {
+  flex: 1 66.66;
+  text-align: center;
+  font: 400 32px/40px "Roboto", sans-serif; }
+.title-box ul {
+  display: block;
+  flex: 1 33.33;
+  font: 100 16px "Roboto", sans-serif;
+  max-width: 271px;
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 10px; }
+.title-box ul .selected {
+  display: block;
+  padding: 12px;
+  background: rgba(252, 252, 252, 0.02);
+  border: solid 1px #92e8fe;
+  border-radius: 6px; }
+.title-box ul .selected:after {
+  content: '';
+  display: block;
+  float: right;
+  width: 0;
+  height: 0;
+  margin-top: 3px;
+  margin-right: -8px;
+  border-top: 8px solid #232b33;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent; }
+.title-box ul .selected:before {
+  content: '';
+  display: block;
+  float: right;
+  width: 0;
+  height: 0;
+  margin-top: 5px;
+  margin-left: -8px;
+  border-top: 8px solid #fff;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent; }
+.title-box ul li > ul {
+  display: none; }
+.title-box ul:hover li > ul {
+  position: absolute;
+  top: 100%;
+  padding: 12px;
+  display: block;
+  max-width: 271px;
+  border: solid 1px #92e8fe;
+  border-radius: 6px;
+  background-color: #1b232b;
+  width: calc(100% - 24px); }
+.title-box ul:hover li > ul > li:hover {
+  background: rgba(252, 252, 252, 0.02); }
+.title-box ul:hover li > ul > li {
+  padding: 10px 0; }
+
+.content-box {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; }
+.content-box .card-box {
+  flex: 0 28%;
+  padding: 15px;
+  font-weight: bold;
+  background-size: cover;
+  border-radius: 15px; }
+.content-box .card-tile {
+  font: 600 22px "Roboto", sans-serif;
+  text-align: center; }
+.content-box .card-icon {
+  text-align: center;
+  margin-top: 20px; }
+.content-box .card-line {
+  display: flex;
+  justify-content: space-between; }
+.content-box .card-price {
+  font: 600 20px/40px "Roboto", sans-serif; }
+.content-box .green {
+  color: #70c446; }
+.content-box .red {
+  color: #c80e24; }
+.content-box .grey {
+  color: rgba(255, 255, 255, 0.2); }
+
+.box-1 {
+  background: url(/images/111.png) no-repeat top left; }
+
+.box-2 {
+  background: url(/images/222.png) no-repeat top left; }
+
+.box-3 {
+  background: url(/images/333.png) no-repeat top left; }
+
+.flipswitch {
+  position: relative;
+  width: 40px;
+  top: 2px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none; }
+.flipswitch input[type=checkbox] {
+  display: none; }
+
+.flipswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #999999;
+  border-radius: 50px; }
+
+.flipswitch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  -webkit-transition: margin 0.3s ease-in 0s;
+  -moz-transition: margin 0.3s ease-in 0s;
+  -ms-transition: margin 0.3s ease-in 0s;
+  -o-transition: margin 0.3s ease-in 0s;
+  transition: margin 0.3s ease-in 0s; }
+.flipswitch-inner:before, .flipswitch-inner:after {
+  float: left;
+  width: 50%;
+  height: 14px;
+  padding: 0;
+  line-height: 14px;
+  font-size: 14px;
+  color: white;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: bold;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+.flipswitch-inner:before {
+  content: "";
+  padding-left: 12px;
+  background-color: #256799;
+  color: #FFFFFF; }
+.flipswitch-inner:after {
+  content: "";
+  padding-right: 12px;
+  background-color: #EBEBEB;
+  color: #888888;
+  text-align: right; }
+
+.flipswitch-switch {
+  width: 20px;
+  margin: -4px;
+  /*  background: #FFFFFF;
+  border: 2px solid #999999;*/
+  background: url(/images/button.png) no-repeat center;
+  background-size: cover;
+  border: solid 3px #fff;
+  border-radius: 50px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 20px;
+  -webkit-transition: all 0.3s ease-in 0s;
+  -moz-transition: all 0.3s ease-in 0s;
+  -ms-transition: all 0.3s ease-in 0s;
+  -o-transition: all 0.3s ease-in 0s;
+  transition: all 0.3s ease-in 0s; }
+
+.flipswitch-cb:checked + .flipswitch-label .flipswitch-inner {
+  margin-left: -2px; }
+
+.flipswitch-cb:checked + .flipswitch-label .flipswitch-switch {
+  right: 2px; }
+
+@media screen and (max-width: 1920px) {
+  body {
+    background-color: #1b232b; } }
+
+@media screen and (max-width: 640px) {
+  .content-box .card-box {
+    flex: 1 100%;
+    margin: 20px; }
+  .title-box h2 {
+    font: 400 24px/24px "Roboto", sans-serif; } }
+
+@media screen and (max-width: 320px) {
+  .title-box h2 {
+    font: 400 18px/23px "Roboto", sans-serif;
+    text-align: left; } }
