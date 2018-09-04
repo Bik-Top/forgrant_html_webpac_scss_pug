@@ -1,33 +1,27 @@
 import React, {Component} from 'react'
-
+import Navy from './components/Navy'
 const currency = [
-    {"currency": "AED", "country": "United Arab Emirates Dirham"},
-    {"currency": "AFN","country": "Afghan Afghani"}, {"currency": "ALL", "country": "Albanian Lek"},
-    {"currency": "AMD", "country": "Armenian Dram"},
-    {"currency": "ANG","country": "Netherlands Antillean Guilder"}
+    {"currency": "USD", "cripto": "BTC", "title": "Bitcoin", "currentImg": './bc.png'},
+    {"currency": "EUR", "cripto": "ETC", "title": "Ethereum", "currentImg": './etherium.png'},
+    {"currency": "RUB", "cripto": "LTC", "title": "Litecoin", "currentImg": './Letecoin.png'}
 ];
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {getData: null}
-        this.onCurrencySelect = this.onCurrencySelect.bind(this)
+        this.state = {getData: null, getNominal: null, getCLink: null};
+        this.selectMoney = this.selectMoney.bind(this);
     }
 
 
     componentDidMount() {
-        this.getBitcoinData()
-    }
+    //console.log('this.props ---- ', this.state)
+    this.getBitcoinData(`https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC&fiat=USD,EUR,RUB`);
+}
 
-    onCurrencySelect (e) {
-        this.setCurrency(e.target.value)
-    }
-    setCurrency (currency) {
-        this.setState({currency}, this.getBitcoinData)
-    }
 
-    getBitcoinData() {
-        fetch(`https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD`)
+    getBitcoinData(getTargetUrl) {
+        fetch(getTargetUrl)
             .then(response => {
                 if (response.ok) {
                     return response.json()
@@ -38,9 +32,6 @@ class App extends Component {
                 console.info(`%c --  `, 'background: green; color:white;', getData);
                 return this.setState({getData})
             })
-            /*.then(
-             getData => this.setState({getData})
-             )*/
             .catch(error => {
                 console.log(`%c ${error}`, 'background: red; color:white; ')
             })
@@ -48,7 +39,8 @@ class App extends Component {
 
 
     selectMoney(type) {
-        console.log('selectMoney', type.target)
+        //console.log('type.target.textContent - ', type.target.textContent);
+        this.setState({getNominal: type.target.textContent});
     }
 
     render() {
@@ -56,15 +48,17 @@ class App extends Component {
             return (
                 <div className="App page">
                     <div className="title-box">
-                        <h2>Select currency to exhange: {this.onCurrencySelect}</h2>
+                        <h2>Select currency to exhange: </h2>
                         <ul onClick={this.selectMoney}>
-                            <li className="selected">{
-                                this.state.currency !== 'USD1' && 'USD'
-                            }</li>
+                            <li className="selected">
+                                {  !this.state.getNominal ? 'USD' : ( this.state.getNominal  ) }
+                            </li>
                             <li>
                                 <ul>
                                     {currency.map((obj, index) =>
-                                        <li key={`${index}-${obj.country}`} value={obj.currency}> {obj.currency} </li>
+                                        <li key={`${index}-${obj.currency}`} value={obj.currency}>
+                                            {obj.currency}
+                                        </li>
                                     )}
                                 </ul>
                             </li>
@@ -72,66 +66,16 @@ class App extends Component {
                     </div>
 
                     <div className="content-box">
-                        <div className="card-box box-1">
-                            <div className="card-tile">{this.state.getData.display_timestamp}</div>
-                            <div className="card-icon">
-                                <img src="./etherium.png" alt="as"/>
-                            </div>
-                            <div className="card-content">
-                                <div className="card-line">
-                                    <div className="card-price">Price:</div>
-                                    <div className="card-price">$22 526.92</div>
-                                </div>
-                                <div className="card-line">
-                                    <div className="card-trigger">Percent change</div>
-                                    <div className="card-trigger">
-                                        <div className="flipswitch">
-                                            <input type="checkbox" name="flipswitch" className="flipswitch-cb" id="fs1"
-                                                   defaultChecked={true}/>
-                                            <label className="flipswitch-label" htmlFor="fs1">
-                                                <span className="flipswitch-inner"/>
-                                                <span className="flipswitch-switch"/>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
+                        {currency.map((obj, index) =>(
+                            <Navy obj={obj}  i={`${index+1}`}  key={`${index}`} data={this.state.getData} item={this.state.getNominal}/>
+                            )
 
+                        )}
 
-                                <div className="h">
-                                    <div className="card-line">
-                                        <div className="grey">Hour change</div>
-                                        <div className="green">+266%</div>
-                                    </div>
-                                </div>
-                                <div className="d">
-                                    <div className="card-line">
-                                        <div className="grey">Day change</div>
-                                        <div className="red">+266%</div>
-                                    </div>
-                                </div>
-                                <div className="w">
-                                    <div className="card-line">
-                                        <div className="grey">Week change</div>
-                                        <div className="green">+266%</div>
-                                    </div>
-                                </div>
-                                <div className="m">
-                                    <div className="card-line">
-                                        <div className="grey">Month change</div>
-                                        <div className="green">+266%</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <br/>
                     <br/>
-                    <p className="App-data">
-                        -DATA:{this.onCurrencySelect}
-                        <br/>
-                        DATA:
-                    </p>
 
 
                 </div>
@@ -146,10 +90,6 @@ class App extends Component {
 
     }
 }
-
-
-
-
 
 
 export default App;
