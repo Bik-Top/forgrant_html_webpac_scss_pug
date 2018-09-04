@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 
 class Navy extends Component {
-
+    const tmp = this.props.obj.cripto  +  this.props.item||'USD';
 
     render() {
         return (
-            <div className={`card-box box-${this.props.i}`} >
+            <div className={`card-box box-${this.props.i}`}>
                 <div className="card-tile">{this.props.obj.title}</div>
                 <div className="card-icon">
                     <img src={this.props.obj.currentImg} alt="as"/>
@@ -13,7 +13,13 @@ class Navy extends Component {
                 <div className="card-content">
                     <div className="card-line">
                         <div className="card-price">Price:</div>
-                        <div className="card-price">$   </div>
+                        <div className="card-price">$
+                            {this.props.data["BTCUSD"].ask}
+
+                            {console.log( '1', this.props.obj.cripto )}
+                            {console.log( '2',   this.props.item||'USD' )}
+
+                            </div>
                     </div>
                     <div className="card-line">
                         <div className="card-trigger">Percent change</div>
