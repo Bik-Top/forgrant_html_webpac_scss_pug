@@ -1,7 +1,15 @@
+# 🚀 Welcome to your new awesome project!
 
-## Brunch master
-##### верстка
-***
-[example](https://demo-project-biktop.c9.io/html/)
+This project has been created using **webpack-cli**, you can now run
 
-## Brunch slave
+```
+npm run build
+```
+
+or
+
+```
+yarn build
+```
+
+to bundle your application

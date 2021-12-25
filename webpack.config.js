@@ -1,97 +1,83 @@
-const webpack = require('webpack'); //to access built-in plugins
+// Generated using webpack-cli https://github.com/webpack/webpack-cli
+
 const path = require('path');
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
-// const autoprefixer = require('autoprefixer');
+const isProduction = process.env.NODE_ENV == 'production';
 
-// const devEnv = 'development';
-// const NODE_ENV = process.env.NODE_ENV || devEnv;
 
+const pathToMainJs = require.resolve("./src/index.js");
+const pathToIndexHtml = require.resolve("./index.html");
 
 const config = {
-    // context: path.resolve(__dirname, 'dist'),
-    entry: path.resolve(__dirname, 'src/index'),
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'js/app_bundle.js',
-        publicPath: '/',
-        //publicPath: 'http://localhost:9000/',
-    },
+  entry: [
+      pathToMainJs,
+      pathToIndexHtml
+  ],
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+  },
+  devServer: {
+    open: false,
+    host: 'localhost',
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+    }),
 
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 9000,
-        //stats: 'errors-only'
-    },
-
-    module: {
-        rules: [
-            {
-                test: /\.html$/,
-                loader: 'html-loader',
-                options: {
-                    minimize: false,
-                    collapseWhitespace: false
-                }
-            },
-/*            {
-                test: /\.pug$/,
-                use: ['html-loader?attrs=false', 'pug-html-loader']
-
-            },*/
-            {
-                test: /\.pug$/,
-                loaders: ['html-loader', 'pug-html-loader?exports=false']
-            },
-            {
-                test: /\.(css|scss)$/,
-                use: ExtractTextPlugin.extract({
-                    publicPath: '/',
-                    fallback: 'style-loader',
-                    use: 'css-loader!sass-loader'
-                })
-            },
-            {
-                test: /\.(jpg|png|svg)$/,
-                loader: 'file-loader',
-                options: {
-                    name: 'images/[name].[ext]'
-                },
-            },
+    // Add your plugins here
+    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+  ],
+  module: {
+    
+    rules: [
+      {
+        // HTML LOADER
+        test: /\.html$/,
+        loader: 'html-loader'
+      },
 
 
-        ]
-    },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          'style-loader',
+          // Translates CSS into CommonJS
+          'css-loader',
+          // Compiles Sass to CSS
+          'sass-loader',
+          
+        ],
+      },
 
 
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: 'Deve my',
-            filename: 'index.html',
-            template: path.resolve(__dirname + '/src/home.html'),
-        }),
-        new ExtractTextPlugin({
-            filename: 'stylesheets/[name].css'
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: "commons",
-            // (the commons chunk name)
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        type: 'asset',
+      },
 
-            filename: "commons.js",
-            // (the filename of the commons chunk)
+      // Add your rules for custom modules here
+      // Learn more about loaders from https://webpack.js.org/loaders/
+    ],
+  },
 
-            // minChunks: 3,
-            // (Modules must be shared between 3 entries)
 
-            // chunks: ["pageA", "pageB"],
-            // (Only use these entries)
-        })
-    ]
 };
 
-module.exports = config;
+module.exports = () => {
+  if (isProduction) {
+    config.mode = 'production';
 
-
+    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
+  } else {
+    config.mode = 'development';
+  }
+  return config;
+};
